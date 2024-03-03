@@ -1,0 +1,42 @@
+WITH TopCountries AS (
+    SELECT
+        D.country_id,
+        D.country
+    FROM customer A
+    JOIN address B ON A.address_id = B.address_id
+    JOIN city C ON B.city_id = C.city_id
+    JOIN country D ON C.country_id = D.country_id
+    GROUP BY D.country_id, D.country
+    ORDER BY COUNT(A.customer_id) DESC
+    LIMIT 10
+),
+RentalData AS (
+    SELECT
+        TC.country,
+        F.rating,
+        COUNT(*) AS rental_count
+    FROM rental R
+    JOIN inventory I ON R.inventory_id = I.inventory_id
+    JOIN film F ON I.film_id = F.film_id
+    JOIN customer CU ON R.customer_id = CU.customer_id
+    JOIN address AD ON CU.address_id = AD.address_id
+    JOIN city CI ON AD.city_id = CI.city_id
+    JOIN TopCountries TC ON CI.country_id = TC.country_id
+    GROUP BY TC.country, F.rating
+)
+SELECT 
+    RD.country,
+    RD.rating,
+    RD.rental_count
+FROM RentalData RD
+WHERE RD.rental_count IN (
+    SELECT MAX(rental_count) FROM RentalData RD2 WHERE RD2.country = RD.country
+)
+ORDER BY RD.country, RD.rental_count DESC;
+
+##Query Explanation##
+###This SQL query is doing a few interesting things to analyze rental data from a movie rental company:
+TopCountries CTE (Common Table Expression): This part is about finding the top 10 countries based on the number of customers. It links several tables: customers, addresses, cities, and countries to understand where the customers are coming from. After joining these tables, it groups the results by country and sorts them by the total number of customers (from highest to lowest) and then limits the output to the top 10 countries.
+RentalData CTE: This section focuses on analyzing rental activity within those top 10 countries identified earlier. It connects rentals to movies (films) and then links this data to customers and their locations to figure out which movies are being rented and how often in those top countries. The data is grouped by country and the movie rating to see the rental count distribution across different movie ratings in these countries.
+Final SELECT statement: Now, this is where things get interesting. The final part of the query pulls from the RentalData CTE to find the most popular movie rating in each of these top countries. It does this by selecting the country, movie rating, and rental count where the rental count for a particular movie rating in a country matches the maximum rental count for that country. This effectively identifies the most popular (highest count) movie rating for each of the top countries. Lastly, it orders the results by country and rental count in descending order to make the data easy to read and analyze.
+In summary, this query is all about identifying which movie ratings are most popular in the top 10 countries where this rental company operates, based on the number of rentals. It provides a clear picture of customer preferences in different regions, which can be crucial for the company's marketing and inventory strategies.###
