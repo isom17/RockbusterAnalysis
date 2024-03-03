@@ -1,0 +1,31 @@
+# Genre Revenue Analysis by Country
+
+This SQL query is structured to unveil the highest grossing movie genres within different countries based on rental data. It provides a clear view of customer preferences and spending habits across different regions, which is invaluable for tailoring content and marketing strategies.
+
+## Query Overview
+
+The query employs a Common Table Expression (CTE) named `RevenueRanking` to sort movie genres by their generated revenue within each country. It achieves this through a multi-step process:
+
+1. **Data Integration**: It starts by joining various tables to ensure a comprehensive dataset encompassing payments, rentals, inventory, films, film categories, customers, addresses, cities, and countries. This chain of joins enables us to trace each payment back to the specific film genre and the customer's country.
+
+2. **Revenue Summation and Ranking**: Within the CTE, the query aggregates total revenue for each film genre within each country. It then uses the `RANK()` function to assign a revenue-based rank to each genre within individual countries, with the highest revenue genres receiving a rank of 1.
+
+3. **Result Filtering**: Outside the CTE, the query selects genres that rank first in their respective countries – these are the genres that have generated the most revenue.
+
+4. **Order and Presentation**: The final output is neatly ordered by country and revenue in descending order, providing a clear, prioritized view of top-performing genres across the globe.
+
+## Usage
+
+This analysis is ideal for companies looking to understand regional market trends and consumer preferences. By identifying the most popular and profitable film genres in different countries, businesses can make informed decisions about which types of content to promote or invest in for specific markets.
+
+## Implementation
+
+Simply run the provided SQL query in your preferred SQL environment connected to the relevant database. Ensure all related tables are correctly linked within your database schema as outlined in the query's join conditions.
+
+## Insights and Actions
+
+- Use the results to tailor your content library and marketing campaigns to fit regional tastes.
+- Monitor changes over time to detect shifting trends and respond proactively.
+- Compare the performance of different genres to guide future acquisitions and productions.
+
+This analysis is a starting point for deeper exploration into consumer behavior and market dynamics. Adjust and expand upon this query to explore different dimensions and uncover more detailed insights.
