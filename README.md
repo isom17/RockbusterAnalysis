@@ -1,5 +1,5 @@
 # RockbusterAnalysis
-Diving into mock company, Rockbuster Stealth's, data to answer key business queries for their business strategy. I'll identify top and bottom-performing movies, analyze rental durations, map out customer geography, pinpoint high-value customer locations, and compare sales across regions leveraging SQL. Stay tuned for actionable insights.
+Diving into Rockbuster Stealth's, data to answer key business queries for their business strategy. I'll identify top and bottom-performing movies, analyze rental durations, map out customer geography, pinpoint high-value customer locations, and compare sales across regions leveraging SQL. Stay tuned for actionable insights.
 ## Rockbuster Stealth LLC Data Analysis Project
 
 **Introduction**: This project takes on the assumptions that I've been hired by Rockbuster Stealth LLC, a traditional movie rental company facing competition from streaming giants. My role is to spearhead the data strategy for launching their new online video rental service. Utilizing SQL, I will analyze various data points to assist with the launch strategy, providing the Rockbuster Stealth management with data-driven insights for their 2020 strategy.
